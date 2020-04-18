@@ -61,7 +61,7 @@ public class StudentServiceTest {
     @Test
     public void shouldUpdateExistingStudent() {
         Student student = studentService.updateStudent(Student.builder().studentFirstName("Course14Updated").studentCourseCode("C003").studentLastName("lastName")
-                .rut("23.222.333-8").id(9L).age(19).build());
+                .studentRUT("23.222.333-8").id(9L).age(19).build());
         assertNotNull(student);
         assertEquals("Course14Updated", student.getStudentFirstName());
         assertEquals("C003", student.getStudentCourseCode());

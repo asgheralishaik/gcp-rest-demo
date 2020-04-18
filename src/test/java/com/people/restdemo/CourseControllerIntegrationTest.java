@@ -95,7 +95,7 @@ public class CourseControllerIntegrationTest {
 
     @Test
     void shouldCreateCourseWhenPOSTJsonRequestIsPassed() throws Exception {
-         String json = "{\"id\":13,\"code\":\"C013\",\"name\":\"Course13\"}";
+         String json = "{\"id\":13,\"courseCode\":\"C013\",\"courseName\":\"Course13\"}";
         MockHttpServletResponse response  = mockMvc.perform(MockMvcRequestBuilders.post("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andReturn().getResponse();
         assertThat(response.getStatus(), equalTo(HttpStatus.CREATED.value()));
@@ -107,7 +107,7 @@ public class CourseControllerIntegrationTest {
 
     @Test
     void shouldUpdateCourseWhenPUTJsonRequestIsPassed() throws Exception {
-        String json = "{\"code\":\"C005\",\"name\":\"Course05Updated\"}";
+        String json = "{\"courseCode\":\"C005\",\"courseName\":\"Course05Updated\"}";
         MockHttpServletResponse response  = mockMvc.perform(MockMvcRequestBuilders.put("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andReturn().getResponse();
         assertThat(response.getStatus(), equalTo(HttpStatus.OK.value()));
@@ -128,7 +128,7 @@ public class CourseControllerIntegrationTest {
 
     @Test
     public void shouldGiveHttpStatusBadDataWhenCourseCodeMoreThan4Characters() throws Exception {
-        String json = "{\"id\":13,\"code\":\"C34567888\",\"name\":\"Course13\"}";
+        String json = "{\"courseCode\":\"C34567888\",\"courseName\":\"Course13\"}";
         String message = mockMvc.perform(MockMvcRequestBuilders.post("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();
             assertTrue(message.contains("The course code should be  4 characters"));

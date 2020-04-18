@@ -67,7 +67,7 @@ public class CourseControllerTest {
 
     @Test
     public void shouldReturnHttCreatedWhenCourseIsCreated() throws Exception {
-        String json = "{\"id\":3,\"code\":\"C876\",\"name\":\"sometest\"}";
+        String json = "{\"courseCode\":\"C876\",\"courseName\":\"sometest\"}";
         when(courseService.createCourse(any(Course.class))).thenReturn(prepareCourses().get(0));
         mockmvc.perform(MockMvcRequestBuilders.post("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isCreated());
@@ -75,7 +75,7 @@ public class CourseControllerTest {
 
     @Test
     public void shouldReturnHttStatusOKWhenCourseIsUpdated() throws Exception {
-        String json = "{\"code\":\"C876\",\"name\":\"updatedValue\"}";
+        String json = "{\"courseCode\":\"C876\",\"courseName\":\"updatedValue\"}";
         when(courseService.updateCourse(any(Course.class))).thenReturn(prepareCourses().get(0));
         mockmvc.perform(MockMvcRequestBuilders.put("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isOk());

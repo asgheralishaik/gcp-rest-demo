@@ -72,11 +72,11 @@ public class StudentControllerTest {
     @Test
     public void shouldReturnHttCreatedWhenStudentIsCreated() throws Exception {
         String json = "{\n" +
-                "            \"rut\": \"24.444.888-5\",\n" +
-                "            \"name\": \"student1\",\n" +
-                "            \"lastName\": \"student1LastName\",\n" +
+                "            \"studentRUT\": \"24.444.888-5\",\n" +
+                "            \"studentFirstName\": \"student1\",\n" +
+                "            \"studentLastName\": \"student1LastName\",\n" +
                 "            \"age\": 19,\n" +
-                "            \"code\": \"C001\"\n" +
+                "            \"studentCourseCode\": \"C001\"\n" +
                 "        }";
         when(studentService.createStudent(any(Student.class))).thenReturn(prepareStudents().get(0));
         mockmvc.perform(MockMvcRequestBuilders.post("/students").content(json)
@@ -87,11 +87,11 @@ public class StudentControllerTest {
     public void shouldReturnHttStatusOKWhenStudentIsUpdated() throws Exception {
         String json = "{\n" +
                 "            \n" +
-                "            \"rut\": \"24.444.888-5\",\n" +
-                "            \"name\": \"student122\",\n" +
-                "            \"lastName\": \"student1Updated\",\n" +
+                "            \"studentRUT\": \"24.444.888-5\",\n" +
+                "            \"studentFirstName\": \"student122\",\n" +
+                "            \"studentLastName\": \"student1Updated\",\n" +
                 "            \"age\": 21,\n" +
-                "            \"code\": \"C001\"\n" +
+                "            \"studentCourseCode\": \"C001\"\n" +
                 "        }";
         when(studentService.updateStudent(any(Student.class))).thenReturn(prepareStudents().get(0));
         mockmvc.perform(MockMvcRequestBuilders.put("/students").content(json)
@@ -102,11 +102,11 @@ public class StudentControllerTest {
     public void shouldReturnHttStatusBadRequestWhenStudentAgeIsLessThan18() throws Exception {
         String json = "{\n" +
                 "            \n" +
-                "            \"rut\": \"24.444.888-5\",\n" +
-                "            \"name\": \"student122\",\n" +
-                "            \"lastName\": \"student1Updated\",\n" +
+                "            \"studentRUT\": \"24.444.888-5\",\n" +
+                "            \"studentFirstName\": \"student122\",\n" +
+                "            \"studentLastName\": \"student1Updated\",\n" +
                 "            \"age\": 15,\n" +
-                "            \"code\": \"C001\"\n" +
+                "            \"studentCourseCode\": \"C001\"\n" +
                 "        }";
         when(studentService.updateStudent(any(Student.class))).thenReturn(prepareStudents().get(0));
         mockmvc.perform(MockMvcRequestBuilders.put("/students").content(json)
@@ -123,7 +123,7 @@ public class StudentControllerTest {
 
 
     private List<Student> prepareStudents() {
-        Student student = Student.builder().studentCourseCode("C001").age(19).studentFirstName("firstName").studentLastName("lastName").rut("24.333.555-4").build();
+        Student student = Student.builder().studentCourseCode("C001").age(19).studentFirstName("firstName").studentLastName("lastName").studentRUT("24.333.555-4").build();
 
 
         return Arrays.asList(student);

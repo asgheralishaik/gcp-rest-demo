@@ -45,7 +45,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Student createStudent(Student studentToBeCreated) {
-        Student newStudent = Student.builder().rut(studentToBeCreated.getRut()).studentFirstName(studentToBeCreated.getStudentFirstName()).studentLastName(studentToBeCreated.getStudentLastName())
+        Student newStudent = Student.builder().studentRUT(studentToBeCreated.getStudentRUT()).studentFirstName(studentToBeCreated.getStudentFirstName()).studentLastName(studentToBeCreated.getStudentLastName())
                 .age(studentToBeCreated.getAge()).studentCourseCode(studentToBeCreated.getStudentCourseCode()).build();
         studentRepository.save(newStudent);
         return newStudent;
@@ -56,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
        Optional<Student> student = studentRepository.findById(studentToBeCreated.getId());
 
         if (student.isPresent()) {
-            Student newStudent = Student.builder().rut(studentToBeCreated.getRut()).studentFirstName(studentToBeCreated.getStudentFirstName()).studentLastName(studentToBeCreated.getStudentLastName())
+            Student newStudent = Student.builder().studentRUT(studentToBeCreated.getStudentRUT()).studentFirstName(studentToBeCreated.getStudentFirstName()).studentLastName(studentToBeCreated.getStudentLastName())
                     .age(studentToBeCreated.getAge()).studentCourseCode(studentToBeCreated.getStudentCourseCode()).build();
             studentRepository.save(newStudent);
             return newStudent;

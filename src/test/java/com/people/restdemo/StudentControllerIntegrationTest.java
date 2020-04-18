@@ -89,7 +89,7 @@ public class StudentControllerIntegrationTest {
 
         Gson gson = new Gson();
         Student student = gson.fromJson(response.getContentAsString(),Student.class);
-        assertThat(student.getRut(),is("24.444.888-7"));
+        assertThat(student.getStudentRUT(),is("24.444.888-7"));
         assertThat(student.getStudentFirstName(),is("student3"));
         assertThat(student.getStudentLastName(),is("student3LastName"));
         assertThat(student.getAge(),is(21));
@@ -99,11 +99,11 @@ public class StudentControllerIntegrationTest {
     @Test
     void shouldCreateStudentWhenPOSTJsonRequestIsPassed() throws Exception {
         String json = "{\n" +
-                "            \"rut\": \"24.444.888-5\",\n" +
-                "            \"name\": \"student1\",\n" +
-                "            \"lastName\": \"student1LastName\",\n" +
+                "            \"studentRUT\": \"24.444.888-5\",\n" +
+                "            \"studentFirstName\": \"student1\",\n" +
+                "            \"studentLastName\": \"student1LastName\",\n" +
                 "            \"age\": 19,\n" +
-                "            \"code\": \"C001\"\n" +
+                "            \"studentCourseCode\": \"C001\"\n" +
                 "        }";
         MockHttpServletResponse response  = mockMvc.perform(MockMvcRequestBuilders.post("/students").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andReturn().getResponse();
@@ -118,11 +118,11 @@ public class StudentControllerIntegrationTest {
     void shouldUpdateStudentWhenPUTJsonRequestIsPassed() throws Exception {
         String json = "{\n" +
                 "\"id\": 2,\n" +
-                "            \"rut\": \"24.444.888-5\",\n" +
-                "            \"name\": \"student1\",\n" +
-                "            \"lastName\": \"student1LastNameUpdated\",\n" +
+                "            \"studentRUT\": \"24.444.888-5\",\n" +
+                "            \"studentFirstName\": \"student1\",\n" +
+                "            \"studentLastName\": \"student1LastNameUpdated\",\n" +
                 "            \"age\": 19,\n" +
-                "            \"code\": \"C001\"\n" +
+                "            \"studentCourseCode\": \"C001\"\n" +
                 "        }";
         MockHttpServletResponse response  = mockMvc.perform(MockMvcRequestBuilders.put("/students").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andReturn().getResponse();
@@ -144,11 +144,11 @@ public class StudentControllerIntegrationTest {
     @Test
     public void shouldGiveHttpStatusBadDataWhenCourseInvalidCourseIsPassed() throws Exception {
         String json = "{\n" +
-                "            \"rut\": \"24.444.888-5\",\n" +
-                "            \"name\": \"student1\",\n" +
-                "            \"lastName\": \"student1LastNameUpdated\",\n" +
+                "            \"studentRUT\": \"24.444.888-5\",\n" +
+                "            \"studentFirstName\": \"student1\",\n" +
+                "            \"studentLastName\": \"student1LastNameUpdated\",\n" +
                 "            \"age\": 19,\n" +
-                "            \"code\": \"C200\"\n" +
+                "            \"studentCourseCode\": \"C200\"\n" +
                 "        }";
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.post("/students").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isBadRequest()).andReturn().getResponse();
@@ -159,11 +159,11 @@ public class StudentControllerIntegrationTest {
     @Test
     public void shouldGiveHttpStatusBadDataWhenCourseRutIsInvalid() throws Exception {
         String json = "{\n" +
-                "            \"rut\": \"24\",\n" +
-                "            \"name\": \"student1\",\n" +
-                "            \"lastName\": \"student1LastNameUpdated\",\n" +
+                "            \"studentRUT\": \"24\",\n" +
+                "            \"studentFirstName\": \"student1\",\n" +
+                "            \"studentLastName\": \"student1LastNameUpdated\",\n" +
                 "            \"age\": 19,\n" +
-                "            \"code\": \"C200\"\n" +
+                "            \"studentLastName\": \"C200\"\n" +
                 "        }";
         String message = mockMvc.perform(MockMvcRequestBuilders.post("/students").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isBadRequest()).andReturn().getResolvedException().getMessage();

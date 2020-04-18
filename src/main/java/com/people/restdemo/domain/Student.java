@@ -28,7 +28,7 @@ public class Student  implements Serializable {
 
     @Column(name = "student_rut")
     @Pattern(regexp = "^(\\d{1,3}(?:\\.\\d{1,3}){2}-[\\dkK])$",message = "RUT should be in format XX.XXX.XXX-X")
-    private String rut;
+    private String studentRUT;
 
     @Column(name = "student_name")
     private String studentFirstName;
