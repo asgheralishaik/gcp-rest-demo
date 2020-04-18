@@ -58,8 +58,8 @@ public class CourseControllerTest {
     @Test
     public void shouldReturnHttpNotFoundWhenCourseNotFound() throws Exception {
 
-        when(courseService.findCourseById(33)).thenThrow(new CourseNotFoundException("course not found"));
-        String message = mockmvc.perform(MockMvcRequestBuilders.get("/courses/33").header("authorization", "Bearer " + token))
+        when(courseService.findCourseByCourseCode(anyString())).thenThrow(new CourseNotFoundException("course not found"));
+        String message = mockmvc.perform(MockMvcRequestBuilders.get("/courses/C101").header("authorization", "Bearer " + token))
                 .andExpect(status().isNotFound()).andReturn().getResolvedException().getMessage();
         assertEquals("course not found", message);
 
@@ -75,33 +75,33 @@ public class CourseControllerTest {
 
     @Test
     public void shouldReturnHttStatusOKWhenCourseIsUpdated() throws Exception {
-        String json = "{\"id\":3,\"code\":\"C876\",\"name\":\"updatedValue\"}";
+        String json = "{\"code\":\"C876\",\"name\":\"updatedValue\"}";
         when(courseService.updateCourse(any(Course.class))).thenReturn(prepareCourses().get(0));
-        mockmvc.perform(MockMvcRequestBuilders.put("/courses/3").content(json)
+        mockmvc.perform(MockMvcRequestBuilders.put("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isOk());
     }
 
 
     @Test
     public void shouldReturnHttStatusOKWhenCourseIsDeleted() throws Exception {
-        doNothing().when(courseService).deleteCourseById(3);
-        mockmvc.perform(MockMvcRequestBuilders.delete("/courses/3")
+        doNothing().when(courseService).deleteCourseByCourseCode(anyString());
+        mockmvc.perform(MockMvcRequestBuilders.delete("/courses/C101")
                 .contentType("application/json").header("authorization", "Bearer " + token)).andExpect(status().isOk());
     }
 
 
     private List<Course> prepareCourses() {
-        Course course1 = Course.builder().code("C001").name("course1").build();
-        Course course2 = Course.builder().code("C002").name("course2").build();
-        Course course3 = Course.builder().code("C003").name("course2").build();
-        Course course4 = Course.builder().code("C004").name("course2").build();
-        Course course5 = Course.builder().code("C005").name("course2").build();
-        Course course6 = Course.builder().code("C006").name("course2").build();
-        Course course7 = Course.builder().code("C007").name("course2").build();
-        Course course8 = Course.builder().code("C008").name("course2").build();
-        Course course9 = Course.builder().code("C009").name("course2").build();
-        Course course10 = Course.builder().code("C010").name("course2").build();
-        Course course11 = Course.builder().code("C011").name("course2").build();
+        Course course1 = Course.builder().courseCode("C001").courseName("course1").build();
+        Course course2 = Course.builder().courseCode("C002").courseName("course2").build();
+        Course course3 = Course.builder().courseCode("C003").courseName("course2").build();
+        Course course4 = Course.builder().courseCode("C004").courseName("course2").build();
+        Course course5 = Course.builder().courseCode("C005").courseName("course2").build();
+        Course course6 = Course.builder().courseCode("C006").courseName("course2").build();
+        Course course7 = Course.builder().courseCode("C007").courseName("course2").build();
+        Course course8 = Course.builder().courseCode("C008").courseName("course2").build();
+        Course course9 = Course.builder().courseCode("C009").courseName("course2").build();
+        Course course10 = Course.builder().courseCode("C010").courseName("course2").build();
+        Course course11 = Course.builder().courseCode("C011").courseName("course2").build();
 
         return Arrays.asList(course1, course2, course3, course4, course5, course6, course7, course8, course9, course10, course11);
     }

@@ -82,16 +82,15 @@ public class CourseControllerIntegrationTest {
     }
 
     @Test
-    void shouldRetrieveCourseById() throws Exception {
-        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/courses/3").header("authorization", "Bearer " + token))
+    void shouldRetrieveCourseByCourseCode() throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get("/courses/C003").header("authorization", "Bearer " + token))
                 .andReturn().getResponse();
         assertThat(response.getStatus(), equalTo(HttpStatus.OK.value()));
 
         Gson gson = new Gson();
         Course course = gson.fromJson(response.getContentAsString(),Course.class);
-        assertThat(course.getId(),is(3L));
-        assertThat(course.getCode(),is("C003"));
-        assertThat(course.getName(),is("Course3"));
+        assertThat(course.getCourseCode(),is("C003"));
+        assertThat(course.getCourseName(),is("Course3"));
     }
 
     @Test
@@ -102,22 +101,20 @@ public class CourseControllerIntegrationTest {
         assertThat(response.getStatus(), equalTo(HttpStatus.CREATED.value()));
         Gson gson = new Gson();
         Course course = gson.fromJson(response.getContentAsString(),Course.class);
-        assertThat(course.getId(),is(13L));
-        assertThat(course.getCode(),is("C013"));
-        assertThat(course.getName(),is("Course13"));
+        assertThat(course.getCourseCode(),is("C013"));
+        assertThat(course.getCourseName(),is("Course13"));
     }
 
     @Test
     void shouldUpdateCourseWhenPUTJsonRequestIsPassed() throws Exception {
-        String json = "{\"id\":5,\"code\":\"C005\",\"name\":\"Course05Updated\"}";
-        MockHttpServletResponse response  = mockMvc.perform(MockMvcRequestBuilders.put("/courses/13").content(json)
+        String json = "{\"code\":\"C005\",\"name\":\"Course05Updated\"}";
+        MockHttpServletResponse response  = mockMvc.perform(MockMvcRequestBuilders.put("/courses").content(json)
                 .contentType("application/json").header("authorization", "Bearer " + token)).andReturn().getResponse();
         assertThat(response.getStatus(), equalTo(HttpStatus.OK.value()));
         Gson gson = new Gson();
         Course course = gson.fromJson(response.getContentAsString(),Course.class);
-        assertThat(course.getId(),is(5L));
-        assertThat(course.getCode(),is("C005"));
-        assertThat(course.getName(),is("Course05Updated"));
+        assertThat(course.getCourseCode(),is("C005"));
+        assertThat(course.getCourseName(),is("Course05Updated"));
     }
 
     @Test

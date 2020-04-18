@@ -1,15 +1,30 @@
-INSERT INTO
-    Course (course_code,course_name)
-VALUES
-('C001','Course1'),
-('C002', 'Course2'),
-('C003', 'Course3'),
-('C004', 'Course4'),
-('C005', 'Course5'),
-('C006', 'Course6'),
-('C007', 'Course7'),
-('C008', 'Course8'),
-('C009', 'Course9'),
-('C010', 'Course10'),
-('C011', 'Cours211'),
-('C012', 'Course12');
+INSERT INTO Course (course_code, course_name)
+VALUES ('C001', 'Course1'),
+       ('C002', 'Course2'),
+       ('C003', 'Course3'),
+       ('C004', 'Course4'),
+       ('C005', 'Course5'),
+       ('C006', 'Course6'),
+       ('C007', 'Course7'),
+       ('C008', 'Course8'),
+       ('C009', 'Course9'),
+       ('C010', 'Course10'),
+       ('C011', 'Course11'),
+       ('C012', 'Course12');
+
+INSERT INTO Student(id, student_rut, student_name,
+                    student_last_name,
+                    student_age,
+                    course_code)
+VALUES (1, '24.444.888-5', 'student1', 'student1LastName', 19, 'C001'),
+       (2, '24.444.888-6', 'student2', 'student2LastName', 20, 'C002'),
+       (3, '24.444.888-7', 'student3', 'student3LastName', 21, 'C003'),
+       (4, '24.444.888-8', 'student4', 'student4LastName', 22, 'C004'),
+       (5, '24.444.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (6, '24.445.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (7, '24.446.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (8, '24.447.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (9, '24.448.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (10, '24.449.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (11, '24.410.888-9', 'student5', 'student5LastName', 23, 'C005'),
+       (12, '24.411.888-9', 'student5', 'student5LastName', 23, 'C005');

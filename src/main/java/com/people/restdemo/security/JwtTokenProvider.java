@@ -16,12 +16,17 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
+import static com.people.restdemo.controller.JWTAuthenticationController.TESTUSER;
+
+/**
+ *Class to generate and validate the token.
+ */
 @Component
 public class JwtTokenProvider {
-    @Value("${security.jwt.token.secret-key:secret}")
     private String secretKey = "secret";
     @Value("${security.jwt.token.expire-length:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
+
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -30,6 +35,7 @@ public class JwtTokenProvider {
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
+    // Create a token
     public String createToken(String username,List<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
@@ -43,12 +49,11 @@ public class JwtTokenProvider {
             .compact();
     }
     public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername("testuser");
+
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(TESTUSER);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
-    public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
+
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -56,6 +61,7 @@ public class JwtTokenProvider {
         }
         return null;
     }
+    //validate the token
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);

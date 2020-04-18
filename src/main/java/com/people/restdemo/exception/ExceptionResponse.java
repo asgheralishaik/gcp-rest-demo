@@ -1,22 +1,14 @@
 package com.people.restdemo.exception;
 
 public class ExceptionResponse {
-  private String message;
-  private String details;
+    private String message;
 
-  public ExceptionResponse(String message, String details) {
-    super();
-    this.message = message;
-    this.details = details;
-  }
-
-
-  public String getMessage() {
-    return message;
-  }
-
-  public String getDetails() {
-    return details;
-  }
+    public ExceptionResponse(String message) {
+        super();
+        this.message = message;
+    }
+    public String getMessage() {
+        return message;
+    }
 
 }

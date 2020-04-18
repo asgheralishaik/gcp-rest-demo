@@ -51,11 +51,10 @@ public class CourseServiceTest {
 
     @Test
     public void shouldGetCourseById() {
-        Course course = courseService.findCourseById(6L);
+        Course course = courseService.findCourseByCourseCode("C006");
         assertNotNull(course);
-        assertEquals(6L, course.getId());
-        assertEquals("Course6", course.getName());
-        assertEquals("C006", course.getCode());
+        assertEquals("Course6", course.getCourseName());
+        assertEquals("C006", course.getCourseCode());
 
     }
 
@@ -63,28 +62,25 @@ public class CourseServiceTest {
 
     @Test
     public void shouldUpdateExistingCourse() {
-        Course course = courseService.updateCourse(Course.builder().name("Course14Updated").code("C014").id(10L).build());
+        Course course = courseService.updateCourse(Course.builder().courseName("Course03Updated").courseCode("C003").build());
         assertNotNull(course);
-        assertEquals(10L, course.getId());
-        assertEquals("Course14Updated", course.getName());
-        assertEquals("C014", course.getCode());
+        assertEquals("Course03Updated", course.getCourseName());
+        assertEquals("C003", course.getCourseCode());
 
     }
 
     @Test
     public void shouldDeleteCourseById() {
-        courseService.deleteCourseById(1);
-        assertThrows(CourseNotFoundException.class,()->courseService.findCourseById(1));
+        assertThrows(CourseNotFoundException.class,()->courseService.deleteCourseByCourseCode("C100"));
 
     }
 
     @Test
     public void shouldCreateCourse() {
-        Course course = courseService.createCourse(Course.builder().name("Course14").code("C014").build());
+        Course course = courseService.createCourse(Course.builder().courseName("Course14").courseCode("C014").build());
         assertNotNull(course);
-        assertEquals(13L, course.getId());
-        assertEquals("Course14", course.getName());
-        assertEquals("C014", course.getCode());
+        assertEquals("Course14", course.getCourseName());
+        assertEquals("C014", course.getCourseCode());
 
     }
 

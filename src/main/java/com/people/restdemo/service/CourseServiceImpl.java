@@ -8,8 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
+/**
+ * Implementation Class to implement All Course related operations
+ */
 @Service
 public class CourseServiceImpl implements CourseService {
 
@@ -32,44 +33,44 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findCourseById(long id) {
-        Optional<Course> course = courseRepository.findById(id);
-        if (course.isPresent()) {
-            return course.get();
+    public Course findCourseByCourseCode(String courseCode) {
+        Course course = courseRepository.findCoursesByCourseCode(courseCode);
+        if (course!=null) {
+            return course;
         } else {
-            throw new CourseNotFoundException(String.format(COURSE_NOT_FOUND_EXCEPTION, id));
+            throw new CourseNotFoundException(String.format(COURSE_NOT_FOUND_EXCEPTION, courseCode));
         }
     }
 
     public Course createCourse(Course courseToBeCreated) {
-        Course newCourse = Course.builder().code(courseToBeCreated.getCode()).name(courseToBeCreated.getName()).build();
+        Course newCourse = Course.builder().courseCode(courseToBeCreated.getCourseCode()).courseName(courseToBeCreated.getCourseName()).build();
         newCourse = courseRepository.save(newCourse);
         return newCourse;
 
     }
 
-    public Course updateCourse(Course courseToBeCreated) {
-        Optional<Course> existingCourse = courseRepository.findById(courseToBeCreated.getId());
+    public Course updateCourse(Course course) {
+        Course existingCourse = courseRepository.findCoursesByCourseCode(course.getCourseCode());
 
-        if (existingCourse.isPresent()) {
-            Course newCourse = existingCourse.get();
-            newCourse.setCode(courseToBeCreated.getCode());
-            newCourse.setName(courseToBeCreated.getName());
+        if (existingCourse !=null) {
+            Course newCourse = existingCourse;
+            newCourse.setCourseCode(course.getCourseCode());
+            newCourse.setCourseName(course.getCourseName());
             newCourse = courseRepository.save(newCourse);
             return newCourse;
         } else {
-            throw new CourseUpdateException(String.format("Course with id : %s does not exists", courseToBeCreated.getId()));
+            throw new CourseUpdateException(String.format("Course with code : %s does not exists", course.getCourseCode()));
         }
 
     }
 
-    public void deleteCourseById(long id) {
-        Optional<Course> course = courseRepository.findById(id);
+    public void deleteCourseByCourseCode(String code) {
+        Course courseToBeDeleted = courseRepository.findCoursesByCourseCode(code);
 
-        if (course.isPresent()) {
-            courseRepository.deleteById(id);
+        if (courseToBeDeleted!=null) {
+            courseRepository.deleteCourseByCourseCode(code);
         } else {
-            throw new CourseNotFoundException(String.format(COURSE_NOT_FOUND_EXCEPTION, id));
+            throw new CourseNotFoundException(String.format(COURSE_NOT_FOUND_EXCEPTION, code));
         }
     }
 

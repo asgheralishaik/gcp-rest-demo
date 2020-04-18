@@ -3,6 +3,10 @@ package com.people.restdemo.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Exception thrown if Data cannot be processed,because of input errors.
+ */
+
 @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
 public class CourseUpdateException extends RuntimeException {
 
