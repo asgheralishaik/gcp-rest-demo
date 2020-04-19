@@ -1,5 +1,5 @@
 service: default
-runtime: java
+runtime: java11
 env: flex
 handlers:
   - url: /.*

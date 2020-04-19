@@ -42,7 +42,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
      *
      * @param ex      the exception thrown
      * @param request the exceptino thrown
-     * @return Http Status 400
+     * @return Http Status 404
      */
     @ExceptionHandler({CourseNotFoundException.class, StudentNotFoundException.class})
     public final ResponseEntity<ExceptionResponse> handleCourseNotFoundException(CourseNotFoundException ex, WebRequest request) {
