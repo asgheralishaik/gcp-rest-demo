@@ -11,7 +11,7 @@ before_script:
 build:
   image: adoptopenjdk/maven-openjdk11
   stage: build
-  script: "./mvnw package -B"
+  script: "mvn package -B"
   artifacts:
     paths:
       - target/*.jar
@@ -21,7 +21,7 @@ build:
 test:
   image: adoptopenjdk/maven-openjdk11
   stage: test
-  script: "./mvnw test"
+  script: "mvn test"
   only:
     - master
 
