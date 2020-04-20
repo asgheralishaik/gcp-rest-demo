@@ -1,4 +1,4 @@
-image: larsdroid/integratieproject1
+image: larsdroid/integratieproject1:v1
 
 stages:
   - build
