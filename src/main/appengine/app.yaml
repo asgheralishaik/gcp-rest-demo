@@ -1,6 +1,5 @@
-service: default
+service: gcp-rest-demo
 runtime: java11
-env: flex
 handlers:
   - url: /.*
     script: this field is required, but ignored
