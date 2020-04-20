@@ -1,6 +1,10 @@
 service: gcp-rest-demo
+env: flex
 runtime: java11
 instance_class: F4
+
+automatic_scaling:
+  max_num_instances: 1
 
 handlers:
   - url: /.*
@@ -13,3 +17,4 @@ resources:
     - name: ramdisk1
       volume_type: tmpfs
       size_gb: 0.5
+entrypoint: java -jar target/*.jar
