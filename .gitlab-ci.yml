@@ -17,13 +17,6 @@ build:
   only:
     - master
 
-test:
-  image: adoptopenjdk/maven-openjdk11
-  stage: test
-  script: "mvn test"
-  only:
-    - master
-
 deploy:
   stage: deploy
   script:
