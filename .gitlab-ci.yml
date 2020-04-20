@@ -2,6 +2,7 @@ image: larsdroid/integratieproject1:v1
 
 stages:
   - build
+  - test
   - deploy
 
 before_script:
@@ -10,10 +11,17 @@ before_script:
 build:
   image: adoptopenjdk/maven-openjdk11
   stage: build
-  script: "mvn package -B -DskipTests"
+  script: "mvn package -B"
   artifacts:
     paths:
       - target/*.jar
+  only:
+    - master
+
+test:
+  image: adoptopenjdk/maven-openjdk11
+  stage: test
+  script: "mvn test"
   only:
     - master
 
