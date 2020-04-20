@@ -9,8 +9,9 @@ before_script:
   - echo "Start CI/CD"
 
 build:
+  image: adoptopenjdk/maven-openjdk11
   stage: build
-  script: "mvn package -B"
+  script: "./mvnw package -B"
   artifacts:
     paths:
       - target/*.jar
@@ -18,8 +19,9 @@ build:
     - master
 
 test:
+  image: adoptopenjdk/maven-openjdk11
   stage: test
-  script: "mvn test"
+  script: "./mvnw test"
   only:
     - master
 
