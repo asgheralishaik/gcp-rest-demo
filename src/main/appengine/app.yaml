@@ -1,5 +1,6 @@
 service: gcp-rest-demo
 runtime: java11
+instance_class: F4
 handlers:
   - url: /.*
     script: this field is required, but ignored
@@ -11,3 +12,4 @@ resources:
     - name: ramdisk1
       volume_type: tmpfs
       size_gb: 0.5
+entrypoint: java -jar target/*.jar
