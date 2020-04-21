@@ -1,20 +1,16 @@
-service: gcp-rest-demo
-env: flex
+service: gcp-rest-demo-sample
 runtime: java11
-instance_class: F4
-
-automatic_scaling:
-  max_num_instances: 1
+health_check:
+  enable_health_check: false
 
 handlers:
   - url: /.*
     script: this field is required, but ignored
 resources:
-  cpu: 1
+  cpu: 2
   memory_gb: 2.3
   disk_size_gb: 10
   volumes:
     - name: ramdisk1
       volume_type: tmpfs
       size_gb: 0.5
-entrypoint: java -jar target/*.jar
